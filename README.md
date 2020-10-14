@@ -15,21 +15,45 @@ _This is a trial project for a position as a Django dev for Coderio._
     A possible `.env` file might look like this:
     ```
     DEBUG=False
-    SECRET_KEY=jldRLNxLtj0tBAY4UjSY23IrrZKqCtXZNq_bB2rF_AtzLBUqZtg
+    SECRET_KEY=asdasdasd
+    ```
+4) Now run the Django project so you can have access to the API.
+    ```
+    python manage.py runserver
     ```
 
-That's it! YOu're good to go now.
+That's it! You're good to go now.
+
+## Endpoints
+_There's a bug between Swagger and Django's REST Framework last version (version specified by the trial project's statement), that's why I haven't yet made a proper Swagger documentation._
+
+We have the following endpoints:
+| Method | Endpoint | Detail |
+| ------ | ------ | ------ |
+| GET | /api/character/<id> | Retrieve a character | 
+| POST | /api/listings/<id>/rating | Add a rating to the character | 
+
+The second endpoint expects a json object like the following:
+```
+{
+    'character': 1,
+    'score': 4
+}
+```
+
 
 
 ## Security Features
 The following security features are present:
 - Environment variables handled with the [environs](https://github.com/sloria/environs) package.
 - New secret key generated via python's `secret` module
+- Secured admin (changed admin's path to avoid common site scrapping hacks)
     
 - 
 Some of the following security features are missing:
 - CORS protection
 - Database passwords since we are only using SQLite
+- A proper allowed hsots list
 
 
 ## Tests
@@ -41,3 +65,6 @@ pytest
 Factories and fixtures are located on a `conftest.py` file inside the `tests` directory.
 
 You can change the pytest configuration in `pytest.ini`
+
+## Observations
+The second endpoint asked in the statement (the rating endpoint), does not need to get the Character's id both from the url and from the json object the endpoint is expecting. It's redundant. Nevertheless I proceeded to follow the statements as it is.
